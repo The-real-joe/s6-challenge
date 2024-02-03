@@ -30,7 +30,7 @@ function App() {
           let item2 = data2.find(item => item.id === item1.homeworld);
           return item2 ? { ...item1, ...item2 } : item1;
         });
-        console.log(combinedData)
+        setData(combinedData)
         })
       
       .catch(function (error) {
@@ -39,15 +39,12 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <h2>Star Wars Characters</h2>
-      <p>See the README of the project for instructions on completing this challenge</p>
-      {/* ✅ Map over the data in state, rendering a Character at each iteration */}
-      combinedData.map()
-  
-
+    <div className="App">
+      {data.map((character, index) => (
+        <Character key={index} character={character} />
+      ))}
     </div>
-  )
+  );
 }
 
 export default App;
