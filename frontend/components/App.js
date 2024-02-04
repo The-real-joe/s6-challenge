@@ -28,10 +28,12 @@ function App() {
         const data1 = people;
         const data2 = planets;
         let combinedData = data1.map(item1 => {
-          let item2 = data2.find(item => item.name === item1.homeworld);
-          return item1 ? { ...item1, ...item2 } : item2;
+          let item2 = data2.find(item => item.id === item1.homeworld);
+        item1.homeworld = item2.name;
+        return item1 
+           
         });
-        combinedData = [...data1, ...data2.map(item => ({ ...item, aliasName: item.name }))];
+      
         setData(combinedData)
         })
       
