@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Styled from 'styled-components';
 import App from "./App"
-
-export default function Char({name, homeworld}){
+export default function Char({ name, homeworld }) {
+    const [showPlanet, setShowPlanet] = useState(false);
+  
+    const togglePlanet = () => {
+      setShowPlanet(!showPlanet);
+    };
+  
     return (
-        <div className='character-card'>
-            <h3 className='character-name'>{name}</h3>
-            <p className='character-planet'>planet:{homeworld}</p>
-        </div>
-    )
-}
+      <div className='character-card' onClick={togglePlanet}>
+        <h3 className='character-name'>{name}</h3>
+        {showPlanet && <p className='character-planet'>planet: {homeworld}</p>}
+      </div>
+    );
+  }
