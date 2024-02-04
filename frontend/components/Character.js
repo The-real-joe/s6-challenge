@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import Char from './char'
+import App from './App'
 
 
 function Character({character}) { // ❗ Add the props

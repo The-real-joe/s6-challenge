@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Character from './Character';
+import Char from './char';
 
 const urlPlanets = 'http://localhost:9009/api/planets';
 const urlPeople = 'http://localhost:9009/api/people';
 
 function App() {
   // ✅ Create state to hold the data from the API
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   // ✅ Create effects to fetch the data and put it in state
 
@@ -27,9 +28,10 @@ function App() {
         const data1 = people;
         const data2 = planets;
         let combinedData = data1.map(item1 => {
-          let item2 = data2.find(item => item.id === item1.homeworld);
-          return item2 ? { ...item1, ...item2 } : item1;
+          let item2 = data2.find(item => item.name === item1.homeworld);
+          return item1 ? { ...item1, ...item2 } : item2;
         });
+        combinedData = [...data1, ...data2.map(item => ({ ...item, aliasName: item.name }))];
         setData(combinedData)
         })
       
@@ -39,9 +41,10 @@ function App() {
   }, []);
 
   return (
+    // ✅ Pass the data into the Character component
     <div className="App">
-      {data.map((character, index) => (
-        <Character key={index} character={character} />
+      { data.map((character, index) => (
+        <Char name = {data[index].name} homeworld = {data[index].homeworld} Character key={index} character={character} />
       ))}
     </div>
   );
